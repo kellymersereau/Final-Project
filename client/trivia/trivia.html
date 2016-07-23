@@ -1,0 +1,40 @@
+<template name="trivia">
+{{#if Template.subscriptionsReady}}
+	<div id="alertsTrivia" hidden="true">
+	<!-- if correctAnswer = true -->
+		{{#if correctAns}}
+			<div class="alert alert success" role="alert">
+				Great job!!! +50 Points!!
+			</div>
+	<!-- if correctAnswer = false -->
+		{{else}}
+			<div class="alert alert-danger" role="alert">
+				Oh Darn, that is the wrong answer!! -10 Points <i class="fa fa-frown-o" aria-hidden="true"></i>
+			</div>
+		{{/if}}
+	</div>
+{{else}}
+	<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+	<span class="sr-only">Loading...</span>
+{{/if}}
+
+	{{> triviaQuestionsShow}}
+</template>
+
+<template name="triviaQuestionsShow">
+
+		<div id="triviaPanel">
+			<div class="panel-heading">
+				{{Question}}
+			</div>
+			<div class="panel-body">
+				{{#each AnswerChoices}}
+					<button class="btn btn-default btn-lg" value={{this}}>
+						{{this}}
+					</button>
+				{{/each}}
+
+			</div>
+		</div>
+	
+</template>

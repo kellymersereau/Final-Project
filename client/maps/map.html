@@ -1,0 +1,19 @@
+<template name="map">
+
+
+	<div class="transitions-content">
+		<h1>Choose your next POI!</h1>
+		<div class="map-container">
+		{{#unless geolocationError}}
+		  {{> googleMap name="map" options=exampleMapOptions}}
+		{{else}}
+		  Geolocation failed: {{geolocationError}}
+		{{/unless}}
+
+
+
+
+		</div>
+		{{> trivia}}
+	</div>
+</template>

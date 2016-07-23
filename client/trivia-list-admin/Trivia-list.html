@@ -1,0 +1,18 @@
+<!-- template to hold the categories form created on the NewCategory.html -->
+<template name="Trivia">
+	<h1 id="triviaTitle">Create a New Trivia Question</h1>
+	{{> CreateTriviaQuestion}}
+
+	<!-- admin only!!! users shouldn't be able to see this unless they have administrative authenication -->
+	<section class="questions">
+		{{#if Template.subscriptionsReady}}
+			{{#each questions}}
+				{{> QuestionList}}
+			{{/each}}
+		{{else}}
+			<h4> Loading ... </h4>
+		{{/if}}
+		
+	</section>
+		
+</template>

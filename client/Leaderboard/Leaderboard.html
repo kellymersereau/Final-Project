@@ -1,0 +1,46 @@
+<template name="Leaderboard">
+  <div class="page-header">
+      <h1 id="table-head-title">Leaderboard</h1>
+  </div>
+  <div class="table-responsive" id="topLevelLeaderboard">
+    {{> leaderboard}}
+  </div>
+</template>
+
+
+
+
+
+<template name='leaderboard'>
+    <table class="table table-bordered">
+      <thead>
+        <tr class="table-border">
+          <th  class="table-border"> Rank </th>
+          <th  class="table-border"> Username </th>
+  <!--         <th  class="table-border"> # of Places Explored </th>
+          <th  class="table-border"> # of Trivia Questions Correct </th> -->
+          <th class="table-border"> Total Score </th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#if Template.subscriptionsReady}}
+          {{#each leaderboard }}
+            <tr class="table-border">
+              <td class="table-border">{{rank}}</td>
+              <td class="table-border">{{username}}</td>
+  <!--             <td class="table-border">{{numPlaces}}</td>
+              <td class="table-border">{{numCorrect}}</td> -->
+              <td class="table-border">{{score}}</td>
+            </tr>
+          {{/each}}
+        {{else}}
+          <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+            <span class="sr-only">Loading...</span>
+        {{/if}}
+      </tbody>
+    </table>
+</template>
+
+
+
+
