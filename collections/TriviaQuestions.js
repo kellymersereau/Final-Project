@@ -1,11 +1,19 @@
-TriviaQuestions = new Mongo.Collection('TriviaQuestions');
+TriviaQuestionsS = new Mongo.Collection('TriviaQuestionsS');
 
 //this says who is allowed to insert into the Trivia function and you are allowed to enter the info if this comes up true and this comes up true if userId exists so then the user will be able to submit a Category
-TriviaQuestions.allow({
+TriviaQuestionsS.allow({
 	insert: function(userId, doc){
 		return !!userId;
-	}
+	},
+	update() {return false},
+	remove() {return false},
 });
+
+TriviaQuestionsS.deny({
+	insert() {return false},
+	update() {return true},
+	remove() {return true},
+})
 
 TriviaSchema = new SimpleSchema({
 	Category: {
@@ -83,4 +91,4 @@ TriviaSchema = new SimpleSchema({
 	},
 });
 
-TriviaQuestions.attachSchema(TriviaSchema);
+TriviaQuestionsS.attachSchema(TriviaSchema);

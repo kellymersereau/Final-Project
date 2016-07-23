@@ -1,4 +1,9 @@
 <template name="trivia">
+
+	<br>
+	<br>
+
+	<button class="btn btn-default btn-primary" id="getTriviaButton" > Get Trivia!</button>
 {{#if Template.subscriptionsReady}}
 	<div id="alertsTrivia" hidden="true">
 	<!-- if correctAnswer = true -->
@@ -18,23 +23,27 @@
 	<span class="sr-only">Loading...</span>
 {{/if}}
 
-	{{> triviaQuestionsShow}}
+	{{#if userPressedButton}}
+
+		{{> triviaQuestionsShow}}
+
+	{{/if}}
 </template>
 
 <template name="triviaQuestionsShow">
-
-		<div id="triviaPanel">
-			<div class="panel-heading">
-				{{Question}}
-			</div>
-			<div class="panel-body">
-				{{#each AnswerChoices}}
-					<button class="btn btn-default btn-lg" value={{this}}>
-						{{this}}
-					</button>
-				{{/each}}
-
-			</div>
+	<div class="triviaPanel">
+	{{#with questions}}
+		<div class="panel-heading">
+			{{Question}}
 		</div>
-	
+		<div class="panel-body">
+			{{#each AnswerChoices}}
+				<button class="btn btn-default btn-lg" value={{this}}>
+					{{this}}
+				</button>
+			{{/each}}
+
+		</div>
+	{{/with}}
+	</div>
 </template>

@@ -45,6 +45,7 @@ percolate:synced-cron
 check
 random
 http
+session
 
 dburles:google-maps
 mdg:geolocation
@@ -54,6 +55,10 @@ dburles:collection-helpers
 mrt:moment
 
 # bootstrap3:jumbotron
-# twbs:bootstrap
+twbs:bootstrap
+
+
+
+
 
 

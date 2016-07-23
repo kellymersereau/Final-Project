@@ -1,10 +1,10 @@
 Meteor.methods({
 
     updateTriviaQuestions: function() {
-        var triviaToken = Meteor.settings.public.triviaToken;
+        // var triviaToken = Meteor.settings.public.triviaToken;
 
         // Get trivia questions
-        HTTP.get('http://www.opentdb.com/api.php?amount=37&token='+triviaToken, function(error, response) {
+        HTTP.get('http://www.opentdb.com/api.php?amount=37&token=1edf672b3460fd4d337d3f83dfc7a174ef02e93e0e44554a925d6c05cac2d49a', function(error, response) {
             var questions = [];
             var entries = response.data.results;
             var sort = 0;
@@ -23,7 +23,7 @@ Meteor.methods({
 
             // Insert new songs into database
             _.each(questions, function(triviaQuestion) {
-                TriviaQuestions.insert(triviaQuestion);
+                TriviaQuestionsS.insert(triviaQuestion);
             }, this);
         });
     },

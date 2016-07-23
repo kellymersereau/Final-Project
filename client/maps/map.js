@@ -1,3 +1,5 @@
+// Meteor.subscribe('TriviaQuestionsS');
+
 //this would load it right away upon starting meteor, so I commented it out.
 
 // if (Meteor.isClient) {
