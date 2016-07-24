@@ -1,12 +1,7 @@
 <template name="MainLayout">
-<!-- 	{{>Template.dynamic template=Header}}
-	{{>Template.dynamic template=SideNav}} -->
 	{{> Header }}
-	{{> SideNav }}
-	<main class="main-layout">
-<!-- 		<div class="transitions-container"> -->
-			{{>Template.dynamic template=main}}
-<!-- 		</div> -->
-	</main>
+	<div class="main-layout">
+		{{>Template.dynamic template=main}}
+	</div>
 	
 </template>

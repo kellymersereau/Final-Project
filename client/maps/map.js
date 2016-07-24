@@ -1,18 +1,24 @@
-// Meteor.subscribe('TriviaQuestionsS');
-
 //this would load it right away upon starting meteor, so I commented it out.
 
 // if (Meteor.isClient) {
 //   Meteor.startup(function() {
 //     GoogleMaps.load();
 //   });
-var MAP_ZOOM = 15;
+var MAP_ZOOM = 15; 
 
 // var  lat = Geolocation.latLng().lat;
 // var  lng = Geolocation .latLng().lng;
 
 //empty array that we will use to store the results from google places:
-placesResponse = {};
+placesResponse = [];
+placeNames = [];
+placeType = [];
+placeVicinity = [];
+renderedPlaces = [];
+renderedNames = [];
+renderedType = [];
+renderedVicinity = [];
+previousPlaces = [];
 
 
 Template.map.onRendered(function() {
@@ -40,8 +46,11 @@ Template.map.onRendered(function() {
               console.log(placesResponse);
               //debugger for testing purposes
               // debugger;
+              _.shuffle(placesResponse);
+              // debugger;
+              Session.set('sessionPlaces', placesResponse);
             }); 
-
+ 
         // Map initialization options
         return {
           center: new google.maps.LatLng(sessionLocation.lat, sessionLocation.lng),
@@ -69,12 +78,68 @@ Template.map.onRendered(function() {
       //trying to add an array of markers
 
       for (i = 0; i<placesResponse.length; i ++){
+        placeNames.push(placesResponse[i].name);
+        placeType.push(placesResponse[i].types);
+        placeVicinity.push(placesResponse[i].vicinity);
 
+      };
+
+
+      //shuffle the 
+// 
+      // renderedPlaces.push(placesResponse[0]);
+      //need a conditional here based on user points (for the second place) not sure where it will be stored yet.
+      // renderedPlaces.push(placesResponse[1]);
+
+      renderedPlaces.push(placesResponse[Math.floor(Math.random() * placesResponse.length)]);
+      renderedPlaces.push(placesResponse[Math.floor(Math.random() * placesResponse.length)]);
+
+      for (i = 0; i<renderedPlaces.length; i ++){
+        
         var POImarker = new google.maps.Marker({
-          position: placesResponse[i].geometry.location,
+          position: renderedPlaces[i].geometry.location,
           map: map.instance,
           animantion: google.maps.Animation.DROP,
-          label: placesResponse[i].name
+          label: renderedPlaces[i].name,
+          icon: renderedPlaces[i].icon
+        });
+
+        renderedNames.push(renderedPlaces[i].name);
+        renderedType.push(renderedPlaces[i].types);
+        renderedVicinity.push(renderedPlaces[i].vicinity);
+        previousPlaces.push(renderedPlaces[i]);
+        console.log("hey " + JSON.stringify(renderedNames));
+
+        console.log(renderedNames[i]);
+
+        //define infowindow 0  NOT WORKING currently
+        // var infowindow = new google.maps.InfoWindow();
+        // debugger;
+        //content string for info window - NOT WORKIGN currently
+        var contentString = "<div id=\"content\"><h1 id=\"POIname\">"
+         + renderedNames[i].name 
+         + "  </h1><br><h3 id=\"types\"> Keywords:" 
+         + renderedType[i].types 
+         + "</h3><br><h3 id=\"vicinity\">Address/Vicnity:" 
+         + renderedVicinity[i].vicinity+"</h3></div>" 
+
+         console.log(contentString);
+
+        //info window variable - NOT WORKING currently
+         infowindow = new google.maps.InfoWindow({
+          content: contentString
+        });
+
+        //listener to open info window on click - NOT WORKING currently
+        // POImarker.addListener(POImarker, 'click', function(POImarker, i){
+        //   return function(){
+        //   infowindow.setContent(contentString);
+        //   infoWindow.open(map, POImarker);
+        // }
+        // });
+
+        POImarker.addListener('click', function(){
+          infowindow.open(map, POImarker);
         });
       }
       //trying to drop in a pin for session/user location now
@@ -104,4 +169,4 @@ Template.map.onRendered(function() {
         });
     });
   });
-// });
+ 

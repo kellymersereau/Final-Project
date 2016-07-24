@@ -27,22 +27,29 @@ Meteor.methods({
             }, this);
         });
     },
-    createProfile: function(doc){
-        check(doc, this.userId);
-
-        var newProfile = {
-            _id: doc.userId,
-            username: doc.username,
-            profile: {
-                firstName: doc.firstName,
-                lastName: doc.lastName,
-                birthday: doc.birthday,
-                website: doc.website,
-                bio: doc.bio,
-            },
-        };
-
-        users.insert(newProfile);
+    updateUserScore(score){
+        Meteor.users.update(this.userId,
+            {$set: {'profile.score': score} }
+        )
     },
+    'set_profile_href'(href) {
+        if (!href) {
+            href = this.userId;
+        }
+        Meteor.users.update(this.userId,
+            {$set: {'profile.href': href}}
+        )
+    },
+    'update_profile_image'(url) {
+        Meteor.users.update(this.userId,
+            {$set: {'profile.image': url}}
+        )
+    },
+    'update_profile_info'(data) {
+        Meteor.users.update(this.userId,
+            {$set: data}
+        )
+    },
+
 
 });

@@ -1,7 +1,7 @@
-Meteor.subscribe('users');
+// Meteor.subscribe('users');
 
-Template.Profile.helpers({
-	currentUser: function(){
-		return Meteor.userId();
-	}
-});
+// Template.Profile.helpers({
+// 	currentUser: function(){
+// 		return Meteor.userId();
+// 	}
+// });

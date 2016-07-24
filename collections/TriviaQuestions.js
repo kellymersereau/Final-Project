@@ -1,3 +1,5 @@
+import { Meteor } from 'meteor/meteor';
+
 TriviaQuestionsS = new Mongo.Collection('TriviaQuestionsS');
 
 //this says who is allowed to insert into the Trivia function and you are allowed to enter the info if this comes up true and this comes up true if userId exists so then the user will be able to submit a Category
