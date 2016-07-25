@@ -24,6 +24,9 @@ Schema.profileSchema = new SimpleSchema({
 		type: Number,
 		optional: true,
 	},
+	href: {
+		type: String,
+	}
 });
 
 Schema.userSchema = new SimpleSchema({

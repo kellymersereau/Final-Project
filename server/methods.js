@@ -40,11 +40,6 @@ Meteor.methods({
             {$set: {'profile.href': href}}
         )
     },
-    'update_profile_image'(url) {
-        Meteor.users.update(this.userId,
-            {$set: {'profile.image': url}}
-        )
-    },
     'update_profile_info'(data) {
         Meteor.users.update(this.userId,
             {$set: data}

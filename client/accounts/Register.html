@@ -1,1 +1,64 @@
-<template name="Register"></template>
+<template name="Register">
+	<div class="page-header" id="log-in-header">
+	  	<h1>Sign up! </h1>
+	  	<h3><small>Already have an account? <a href="/sign-in">Log in</a> here!</small></h3>
+	</div>
+
+
+	<form class="form-horizontal" id="registerForm">
+		<div class="form-group">
+			<label for="username" class="col-sm-12 control-label">Username </label>
+			<div class="col-sm-12">
+				<input type="text" class="form-control" id="username" >
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="firstName" class="col-sm-12 control-label">First Name </label>
+			<div class="col-sm-12">
+				<input type="text" class="form-control" id="firstName" >
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="lastName" class="col-sm-12 control-label">Last Name</label>
+			<div class="col-sm-12">
+				<input type="text" class="form-control" id="lastName" >
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="email" class="col-sm-12 control-label">E-mail</label>
+			<div class="col-sm-12">
+				<input type="email" class="form-control" id="email" >
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="password1" class="col-sm-12 control-label">Password</label>
+			<div class="col-sm-12">
+				<input type="password" class="form-control" id="password" >
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="password2" class="col-sm-12 control-label">Re-enter Password</label>
+			<div class="col-sm-12">
+				<input type="password" class="form-control" id="password2" >
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="location" class="col-sm-12 control-label">Location</label>
+			<div class="col-sm-12">
+				<input type="text" class="form-control" id="location" >
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="bio" class="col-sm-12 control-label">Bio</label>
+			<div class="col-sm-12">
+				<textarea class="form-control" rows="3" id="bio"></textarea>
+			</div>
+		</div>
+		<div class="form-group">
+		  <div class="col-sm-offset-5 col-sm-6">
+		    <button type="submit" class="btn btn-primary btn-lg" id="registerButton">Sign Up</button>
+		  </div>
+		</div>
+	</form>
+
+</template>
