@@ -2,7 +2,7 @@ import { Mongo } from 'meteor/mongo';
 
 Meteor.subscribe('users');
 Meteor.subscribe('History');
-Meteor.subscribe('userprofile');
+Meteor.subscribe("userData");
 
 Template.leaderboard.helpers({
 	leaderboard: ()=> {
@@ -14,9 +14,9 @@ Template.leaderboard.helpers({
 		return i;
 	},
 	username:() => {
-		return Meteor.userId();
+		return Meteor.user().profile.username;
 	},
 	score:()=>{
-		return Meteor.userprofile.find({score: 1})
+		return Meteor.user().profile.score;
 	}
 });

@@ -1,1 +1,50 @@
-<template name="UserProfile"></template>
+<template name="Profile">
+	{{> SideNav}}
+
+	{{#if currentUser }}
+	<div class="page-header" id="log-in-header">
+
+		<h1>{{firstName}}'s Profile </h1>
+		<h3><small>Click the pencil to edit the information. </small></h3>
+	</div>
+
+	<form class="form-horizontal" id="profileForm">
+		<div class="form-group">
+			<label for="username" class="col-sm-3 control-label">Username </label>
+			<div class="col-sm-9">
+				<input type="text" class="form-control" id="username" placeholder={{username}}>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="firstName" class="col-sm-3 control-label">First Name </label>
+			<div class="col-sm-9">
+				<input type="text" class="form-control" id="firstName" placeholder={{firstName}}>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="lastName" class="col-sm-3 control-label">Last Name</label>
+			<div class="col-sm-9">
+				<input type="text" class="form-control" id="lastName" placeholder={{lastName}}>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="email" class="col-sm-3 control-label">E-mail</label>
+			<div class="col-sm-9">
+				<input type="email" class="form-control" id="email" placeholder={{email}}>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="location" class="col-sm-3 control-label">Location</label>
+			<div class="col-sm-9">
+				<input type="text" class="form-control" id="location" placeholder={{location}}>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="bio" class="col-sm-3 control-label">Bio</label>
+			<div class="col-sm-9">
+				<textarea class="form-control" rows="3" id="bio" placeholder={{bio}}></textarea>
+			</div>
+		</div>
+	</form>
+	{{/if}}
+</template>
