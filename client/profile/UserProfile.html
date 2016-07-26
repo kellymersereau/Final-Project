@@ -6,45 +6,109 @@
 
 		<h1>{{firstName}}'s Profile </h1>
 		<h3><small>Click the pencil to edit the information. </small></h3>
+		<a id="editPencil"><i class="fa fa-pencil fa-lg" aria-hidden="true"></i></a>
 	</div>
 
+	{{#unless userClickedEdit}}
+
+
 	<form class="form-horizontal" id="profileForm">
+		<fieldset disabled=true>
+
 		<div class="form-group">
 			<label for="username" class="col-sm-3 control-label">Username </label>
 			<div class="col-sm-9">
-				<input type="text" class="form-control" id="username" placeholder={{username}}>
+				<input type="text" class="form-control" id="username"  value={{username}}>
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="firstName" class="col-sm-3 control-label">First Name </label>
 			<div class="col-sm-9">
-				<input type="text" class="form-control" id="firstName" placeholder={{firstName}}>
+				<input type="text" class="form-control" id="firstName"  value={{firstName}}>
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="lastName" class="col-sm-3 control-label">Last Name</label>
 			<div class="col-sm-9">
-				<input type="text" class="form-control" id="lastName" placeholder={{lastName}}>
+				<input type="text" class="form-control" id="lastName"  value={{lastName}}>
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="email" class="col-sm-3 control-label">E-mail</label>
 			<div class="col-sm-9">
-				<input type="email" class="form-control" id="email" placeholder={{email}}>
+				<input type="email" class="form-control" id="email"  value={{email}}>
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="location" class="col-sm-3 control-label">Location</label>
 			<div class="col-sm-9">
-				<input type="text" class="form-control" id="location" placeholder={{location}}>
+				<input type="text" class="form-control" id="location"  value={{location}}>
 			</div>
 		</div>
 		<div class="form-group">
 			<label for="bio" class="col-sm-3 control-label">Bio</label>
 			<div class="col-sm-9">
-				<textarea class="form-control" rows="3" id="bio" placeholder={{bio}}></textarea>
+				<textarea class="form-control" rows="3" id="bio" value={{bio}}  ></textarea>
 			</div>
 		</div>
+		</fieldset>
 	</form>
+	{{/unless}}
+		{{#if userClickedEdit}}
+			{{> editProfile}}
+		{{/if}}
 	{{/if}}
+</template>
+
+
+
+<template name="editProfile">
+	<div class="alert" role="alert"></div>
+
+
+	<form class="form-horizontal" id="editProfileForm">
+
+		<div class="form-group">
+			<label for="username" class="col-sm-3 control-label">Username </label>
+			<div class="col-sm-9">
+				<input type="text" class="form-control" id="usernameNew" name="username" value={{username}}>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="firstName" class="col-sm-3 control-label">First Name </label>
+			<div class="col-sm-9">
+				<input type="text" class="form-control" id="firstNameNew" name="firstName" value={{firstName}}>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="lastName" class="col-sm-3 control-label">Last Name</label>
+			<div class="col-sm-9">
+				<input type="text" class="form-control" id="lastNameNew" name="lastName" value={{lastName}}>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="email" class="col-sm-3 control-label">E-mail</label>
+			<div class="col-sm-9">
+				<input type="email" class="form-control" id="emailNew" name="emailNew" value={{email}}>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="location" class="col-sm-3 control-label">Location</label>
+			<div class="col-sm-9">
+				<input type="text" class="form-control" id="locationNew" name="location" value={{location}}>
+			</div>
+		</div>
+		<div class="form-group">
+			<label for="bio" class="col-sm-3 control-label">Bio</label>
+			<div class="col-sm-9">
+				<textarea class="form-control" rows="3" id="bioNew" name="bio" value={{bio}}></textarea>
+			</div>
+		</div>
+		<div class="form-group" id="saveButton">
+		  <div class="col-sm-offset-5 col-sm-6">
+		    <button class="btn btn-primary btn-lg" id="saveButton">Save</button>
+		  </div>
+		</div>
+
+	</form>
 </template>

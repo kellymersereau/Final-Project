@@ -28,7 +28,11 @@ Template.Register.events({
 					};
 					FlowRouter.go('/profile/:id', params);
 				})
-			} else { console.log(err)}
+			} else { 
+				console.log(err)
+				$('.alert').addClass('alert-danger');
+				$('.alert').text(err.reason);
+			}
 		})
 	}
 });

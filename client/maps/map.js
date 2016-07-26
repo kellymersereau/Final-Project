@@ -4,7 +4,7 @@
 //   Meteor.startup(function() {
 //     GoogleMaps.load();
 //   });
-var MAP_ZOOM = 15; 
+var MAP_ZOOM = 16; 
 
 // var  lat = Geolocation.latLng().lat;
 // var  lng = Geolocation .latLng().lng;
@@ -19,6 +19,9 @@ renderedNames = [];
 renderedType = [];
 renderedVicinity = [];
 previousPlaces = [];
+renderedPlacesIcons = [];
+radiusLat = [];
+radiusLng = [];
 
 
 Template.map.onRendered(function() {
@@ -54,16 +57,18 @@ Template.map.onRendered(function() {
         // Map initialization options
         return {
           center: new google.maps.LatLng(sessionLocation.lat, sessionLocation.lng),
-          zoom: 14
+          zoom: 17
         };
       }
     }
   });
 
   Template.map.onCreated(function() {
+    var self = this;
     // GoogleMaps.loadUtilityLibrary('/map_libs/geolocation-marker.js')
     // We can use the `ready` callback to interact with the map API once the map is ready.
     GoogleMaps.ready('map', function(map) {
+
 
       // GoogleMaps.ready('map', function(map) {
       //     var latLng = currentPosition();
@@ -95,40 +100,107 @@ Template.map.onRendered(function() {
       renderedPlaces.push(placesResponse[Math.floor(Math.random() * placesResponse.length)]);
 
       for (i = 0; i<renderedPlaces.length; i ++){
+
+        renderedNames.push(renderedPlaces[i].name);
+        renderedType.push(renderedPlaces[i].types);
+        renderedPlacesIcons.push(renderedPlaces[i].icon);
+        renderedVicinity.push(renderedPlaces[i].vicinity);
+        previousPlaces.push(renderedPlaces[i]);
+        console.log(JSON.stringify(renderedNames));
+        console.log(renderedNames[i]);
+
+        var resizedIcon = {
+          url: renderedPlaces[i].icon,
+          scaledSize: new google.maps.Size(25, 35),
+          origin: new google.maps.Point(0, 0),
+          anchor: new google.maps.Point(35, 35)
+        };
         
         var POImarker = new google.maps.Marker({
           position: renderedPlaces[i].geometry.location,
           map: map.instance,
-          animantion: google.maps.Animation.DROP,
+          animation: google.maps.Animation.DROP,
           label: renderedPlaces[i].name,
-          icon: renderedPlaces[i].icon
+          icon: resizedIcon
         });
 
-        renderedNames.push(renderedPlaces[i].name);
-        renderedType.push(renderedPlaces[i].types);
-        renderedVicinity.push(renderedPlaces[i].vicinity);
-        previousPlaces.push(renderedPlaces[i]);
-        console.log("hey " + JSON.stringify(renderedNames));
+        // CIRCLE AROUND MARKERS: 
 
-        console.log(renderedNames[i]);
+        var POIcircle = new google.maps.Circle({
+          map: map.instance,
+          clickable: false,
+          strokeColor: '#FF0000',
+          radius: 10000,
+          fillcolor: '#FF0000',
+          fillOpacity: .35,
+          center: POImarker.position
+        });
+
+        POIcircle.bindTo("center", POImarker, "position");
+
+        var bounds = POIcircle.getBounds();
+        radiusLng.push(bounds.b);
+        radiusLat.push(bounds.f);
+
+//moved this from outside the loop into it. but now it's happening twice, however, I need it in here as I need to have access to the POI circles and their bounds.
+        // Template.body.events({
+        //   'click .check-in': function (e) {
+        //     e.preventDefault();
+        //     console.log("check in button pressed. user is at: lat: " + sessionLocation.lat + " lng: " + sessionLocation.lng);
+
+        //     //the commented out code is specifically for a perfect geolocation match with session location.
+
+        //     if (sessionLocation === renderedPlaces[0].geometry.location || sessionLocation === renderedPlaces[1].geometry.location){
+        //       console.log("user has reached POI!");
+        //       alert('Nice work! Answer the question below!');
+        //     }else{
+        //       alert('You haven\'t reached one of the goal locations yet! Head over to one and then check in!');
+        //     }
+
+        //     radiusCheck = new google.maps.LatLng(sessionLocation.lat, sessionLocation.lng);
+        //     console.log(bounds.contains(radiusCheck));
+        //   }
+        // }); 
+
+      radiusCheck = new google.maps.LatLng(sessionLocation.lat, sessionLocation.lng);
+
+      Template.body.events({
+        'click #getTriviaButton': function (e) {
+          e.preventDefault();
+          console.log("check in button pressed. user is at: lat: " + sessionLocation.lat + " lng: " + sessionLocation.lng);
+
+          console.log(bounds.contains(radiusCheck));
+
+          if (bounds.contains(radiusCheck) == true){ 
+            console.log("user has reached POI!");
+            alert('Nice work! Answer the question below!');
+            Session.set('showQuestion', true);
+            Session.set('sessionPoints', 1);
+          }else{
+            alert('You haven\'t reached one of the goal locations yet! Head over to one and then check in!');
+            console.log("user clicked button but has not reached");
+          }
+        }
+      }); 
 
         //define infowindow 0  NOT WORKING currently
         // var infowindow = new google.maps.InfoWindow();
         // debugger;
         //content string for info window - NOT WORKIGN currently
-        var contentString = "<div id=\"content\"><h1 id=\"POIname\">"
-         + renderedNames[i].name 
-         + "  </h1><br><h3 id=\"types\"> Keywords:" 
-         + renderedType[i].types 
-         + "</h3><br><h3 id=\"vicinity\">Address/Vicnity:" 
-         + renderedVicinity[i].vicinity+"</h3></div>" 
+        // var contentString[i] = "null"
+        // "<div id=\"content\"><h1 id=\"POIname\">"
+        //  + renderedNames[i].name 
+        //  + "  </h1><br><h3 id=\"types\"> Keywords:" 
+        //  + renderedType[i].types 
+        //  + "</h3><br><h3 id=\"vicinity\">Address/Vicnity:" 
+        //  + renderedVicinity[i].vicinity+"</h3></div>" 
 
-         console.log(contentString);
+         // console.log(contentString[i]);
 
         //info window variable - NOT WORKING currently
-         infowindow = new google.maps.InfoWindow({
-          content: contentString
-        });
+        //  infowindow = new google.maps.InfoWindow({
+        //   content: contentString
+        // });
 
         //listener to open info window on click - NOT WORKING currently
         // POImarker.addListener(POImarker, 'click', function(POImarker, i){
@@ -138,9 +210,9 @@ Template.map.onRendered(function() {
         // }
         // });
 
-        POImarker.addListener('click', function(){
-          infowindow.open(map, POImarker);
-        });
+        // POImarker.addListener('click', function(){
+        //   infowindow.open(map, POImarker);
+        // });
       }
       //trying to drop in a pin for session/user location now
 
@@ -159,14 +231,55 @@ Template.map.onRendered(function() {
         var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor,
             new google.maps.Size(21, 34),
             new google.maps.Point(0,0),
-            new google.maps.Point(10, 34));
+            new google.maps.Point(0, 0));
 
-        var marker = new google.maps.Marker({
-          animation: google.maps.Animation.BOUNCE,
-          position: sessionLocation,
-          map: map.instance,
-          icon: pinImage
-        });
+      var marker;
+      var userLatLng = Geolocation.latLng();
+
+      self.autorun(function(){
+        userLatLng = Geolocation.latLng();
+        if (! userLatLng)
+          return;
+
+        if (! marker){
+          console.log('new user location marker');
+          var marker = new google.maps.Marker({
+            animation: google.maps.Animation.BOUNCE,
+            position: sessionLocation,
+            map: map.instance,
+            icon: pinImage
+          });
+        }else{
+          marker.setPosition(userLatLng);
+
+          Session.set('currentUserLocation', userLatLng);
+
+          console.log('Location moved. Current location is: ' + userLatLng.lat + ' ' + userLatLng.lng);
+              
+          currentUserLocation = Session.get("currentUserLocation");
+        }
+      });
     });
   });
- 
+
+// Template.body.events({
+//   'click .check-in': function (e) {
+//     e.preventDefault();
+//     console.log("check in button pressed. user is at: lat: " + sessionLocation.lat + " lng: " + sessionLocation.lng);
+
+//     //can use the bounds here if I need to, will try contains first.
+
+//     if (sessionLocation === renderedPlaces[0].geometry.location || sessionLocation === renderedPlaces[1].geometry.location){
+//       console.log("user has reached POI!");
+//       alert('Nice work! Answer the question below!');
+//     }else{
+//       alert('You haven\'t reached one of the goal locations yet! Head over to one and then check in!');
+//     }
+//     //getting an error message here:
+//     console.log( bounds.contains( sessionLocation ) );
+//   }
+// }); 
+
+  // google.maps.Circle.prototype.contains = function(latLng) {
+  //   return this.getBounds().contains(latLng) && google.maps.geometry.spherical.computeDistanceBetween(this.getCenter(), latLng) <= this.getRadius();
+  // };

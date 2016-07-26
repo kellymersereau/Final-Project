@@ -45,6 +45,18 @@ Meteor.methods({
             {$set: data}
         )
     },
+    increaseUserScoreOne(){
+        currentScore = Meteor.users().profile.score;
+        Meteor.users.update(this.userId,
+            {$set: {'profile.score': currentScore++} }
+        )
+    },
+    increaseUserScoreTwo(){
+        currentScore = Meteor.users().profile.score;
+        Meteor.users.update(this.userId,
+            {$set: {'profile.score': currentScore+2} }
+        )
+    },
 
 
 });
