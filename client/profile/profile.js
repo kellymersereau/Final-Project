@@ -13,7 +13,7 @@ Template.Profile.helpers({
 		return Meteor.user().profile.lastName;
 	},
 	username: function(){
-		return Meteor.user().profile.username;
+		return Meteor.user().username;
 	},
 	email: function(){
 		return Meteor.user().emails[0].address;
@@ -83,7 +83,7 @@ Template.editProfile.events({
 		var id= Meteor.userId();
 		console.log(id)
 
-		Meteor.call('update_profile_info', (err, data) => {
+		Meteor.users.update(Meteor.userId(), {$set: data}, function(err, res){
 			if(!err){
 				console.log('no error!');
 				$('fieldset').prop('disabled', true);
@@ -95,19 +95,5 @@ Template.editProfile.events({
 			}
 
 		});
-		
 	}
 });
-
-// 'click .toggle-checked'() {
-//     // Set the checked property to the opposite of its current value
-//     Tasks.update(this._id, {
-//       $set: { checked: ! this.checked },
-//     });
-//   },
-
-    // 'update_profile_info'(data) {
-    //     Meteor.users.update(this.userId,
-    //         {$set: data}
-    //     )
-    // },

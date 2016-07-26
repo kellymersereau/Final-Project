@@ -10,17 +10,14 @@ Meteor.users.allow({
         return !! userId;
     },
     
-    update: function(userId, doc, fieldNames) {
+    update: function(userId, doc) {
         // only allow updating if you are logged in
         console.log("doc: " + doc + " userId: " + userId);
         // NOTE: a user can only update his own user doc and only the 'userProfile' field
-        return !! userId && userId === doc._id && _.isEmpty(_.difference(fieldNames, ['userProfile'])); 
+        return !! userId;
     },
      // NOTE: The client should not generally be able to remove users
-    remove: function(userID, doc) {
-        //only allow deleting if you are owner
-        return doc.submittedById === Meteor.userId();
-    }
+    remove() {return false},
     
 });
 
@@ -49,6 +46,7 @@ Schema.profileSchema = new SimpleSchema({
 	},
 	href: {
 		type: String,
+		optional: true,
 	}
 });
 
