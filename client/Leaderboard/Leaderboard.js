@@ -1,22 +1,17 @@
 import { Mongo } from 'meteor/mongo';
 
 Meteor.subscribe('users');
-Meteor.subscribe('History');
+Meteor.subscribe('GameHistory');
 Meteor.subscribe("userData");
 
 Template.leaderboard.helpers({
 	leaderboard: ()=> {
-		return Meteor.users.find({})
+		return Meteor.users.find({}, {sort: {'profile.score': -1}});
 	},
 	rank:() => {
-		var i = 0;
-		i += 1;
-		return i;
+		for(var i=1; i < 100; i++){
+			return i;
+		}
 	},
-	username:() => {
-		return Meteor.user().profile.username;
-	},
-	score:()=>{
-		return Meteor.user().profile.score;
-	}
+	
 });

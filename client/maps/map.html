@@ -3,7 +3,16 @@
 	{{> SideNav}}
 
 	<div class="transitions-content">
-		<h1>Choose your next POI!</h1>
+		<div class="row" id="mapHeader">
+			<div class="col-md-6 col-md-offset-3">
+				<h1>Start Playing! </h1>
+			</div>
+		</div>
+		<div class="row" id="mapBody">
+			<div class="col-md-8 col-md-offset-2">
+				<p>Find your way to the location marked on the map.  Once you arrive at the location click "Check In" to check in and get a trivia question to answer.  If you answer correctly, you will receive two new locations to choose from.  If your answer is wrong, you will only receive one new location.</p>
+			</div>
+		</div>
 		<div class="map-container">
 		{{#unless geolocationError}}
 		  {{> googleMap name="map" options=exampleMapOptions}}

@@ -3,25 +3,32 @@
 	<br>
 	<br>
 
-	<button class="btn btn-default btn-primary" id="getTriviaButton" >Check In!</button>
-{{#if Template.subscriptionsReady}}
-	<div id="alertsTrivia" hidden="true">
-	<!-- if correctAnswer = true -->
-		{{#if correctAns}}
-			<div class="alert alert-success" role="alert">
-				Great job!!! +50 Points!!
-			</div>
-	<!-- if correctAnswer = false -->
-		{{else}}
-			<div class="alert alert-danger" role="alert">
-				Oh Darn, that is the wrong answer!! -10 Points <i class="fa fa-frown-o" aria-hidden="true"></i>
-			</div>
-		{{/if}}
+	<div id="alertsTrivia">
+		<div class="alert alert-success alert-dismissible" role="alert" id="correctAlert" hidden="true">
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<strong>THAT'S CORRECT! You're so smart!!!!!</strong> +50 Points!! 
+		</div>
+		<div class="alert alert-danger alert-dismissible" role="alert" id="wrongAlert" hidden="true">
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			<strong>Oh Darn, that is the wrong answer!! </strong> -10 Points <i class="fa fa-frown-o" aria-hidden="true"></i>
+		</div>
 	</div>
-{{else}}
-	<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
-	<span class="sr-only">Loading...</span>
-{{/if}}
+	{{#if Template.subscriptionsReady}}
+	<div class="row">
+		<div class="col-md-4 col-md-offset-4">
+			<button class="btn btn-default btn-primary" id="getTriviaButton" >Check In!</button>
+		</div>
+	</div>
+	{{else}}
+	<div class="row">
+		<div class="col-md-4 col-md-offset-4">
+			<i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+			<span class="sr-only">Loading...</span>
+		</div>
+	</div>
+				
+	{{/if}}
+
 
 	{{#if userPressedButton}}
 
@@ -31,18 +38,22 @@
 </template>
 
 <template name="triviaQuestionsShow">
+
 	<div class="triviaPanel">
 	{{#with questions}}
 		<div class="panel-heading">
-			{{Question}}
+			<h3 class="text-center">{{Question}}</h3>
 		</div>
 		<div class="panel-body">
-			{{#each AnswerChoices}}
-				<button class="btn btn-default btn-lg" value={{this}}>
-					{{this}}
-				</button>
-			{{/each}}
-
+			<div class="row">
+				<div class="col-md-8 col-md-offset-2">
+				{{#each AnswerChoices}}
+					<button class="btn btn-text" value={{this}}>
+						{{this}}
+					</button>
+				{{/each}}
+				</div>
+			</div>
 		</div>
 	{{/with}}
 	</div>

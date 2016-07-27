@@ -81,17 +81,15 @@ body
 header
     color #FFF 
     background: purp
-    padding 20px
     fixed top left
     width 100%
-    height 70px  
+    height 80px  
     z-index: z.header
     shadow-level(2)
     clearfix()
     h1 
-        margin 0
-        font-size 1.6em 
-        float left
+        text-align center
+        font-size 40px 
     .login-buttons-dropdown-align-
         float right
         a
@@ -101,7 +99,7 @@ header
 
 p
     color #333 
-    font-size 20px
+    font-size 14px
 
 
 .page-title
@@ -184,6 +182,7 @@ p
         background transparent
         border solid 2px purp
         shadow-level(0)
+        align center
         &:hover
             background teal
             border-color @background
@@ -280,7 +279,7 @@ input, select, textarea
     a
         color #FFF
         text-decoration none
-        font-size 20px
+        font-size 16px
         padding 20px 20px
         display block
         text-align center
@@ -289,7 +288,7 @@ input, select, textarea
             background purp 
     i
         display block
-        font-size 2em
+        font-size 200%
         margin-bottom 10px 
     +above($med)
         height 100%
@@ -486,4 +485,16 @@ th, tr, td
         font-weight 400
 @media only screen and (min-width: 700px)
         .side-nav a
-            font-size 14px
+            font-size 16px
+
+.main-home
+    background-image: url('./public/images/friends-going-to-car.jpg')
+
+.alert
+    font-size 16px
+
+#mapHeader
+    font-size 32px
+    text-align center
+#mapBody
+    text-align center

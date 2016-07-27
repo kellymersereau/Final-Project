@@ -2,6 +2,12 @@
 Meteor.publish('TriviaQuestionsS', function() {
     return TriviaQuestionsS.find({});
 });
+
+
+Meteor.publish('GameHistory', function() {
+    return GameHistory.find({});
+}); 
+
 Meteor.publish('users', function() {
 	  if (this.userId) {
 	    return Meteor.users.find({_id: this.userId});

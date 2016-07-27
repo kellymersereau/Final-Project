@@ -19,8 +19,6 @@
         <tr class="table-border">
           <th  class="table-border"> Rank </th>
           <th  class="table-border"> Username </th>
-  <!--         <th  class="table-border"> # of Places Explored </th>
-          <th  class="table-border"> # of Trivia Questions Correct </th> -->
           <th class="table-border"> Total Score </th>
         </tr>
       </thead>
@@ -30,9 +28,7 @@
             <tr class="table-border">
               <td class="table-border">{{rank}}</td>
               <td class="table-border">{{username}}</td>
-  <!--             <td class="table-border">{{numPlaces}}</td>
-              <td class="table-border">{{numCorrect}}</td> -->
-              <td class="table-border">{{score}}</td>
+              <td class="table-border">{{profile.score}}</td>
             </tr>
           {{/each}}
         {{else}}

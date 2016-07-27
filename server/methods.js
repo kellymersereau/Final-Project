@@ -27,11 +27,6 @@ Meteor.methods({
             }, this);
         });
     },
-    updateUserScore(score){
-        Meteor.users.update(this.userId,
-            {$set: {'profile.score': score} }
-        )
-    },
     'set_profile_href'(href) {
         if (!href) {
             href = this.userId;
@@ -40,23 +35,7 @@ Meteor.methods({
             {$set: {'profile.href': href}}
         )
     },
-    'update_profile_info'(data) {
-        Meteor.users.update(this.userId,
-            {$set: data}
-        )
-    },
-    increaseUserScoreOne(){
-        currentScore = Meteor.users().profile.score;
-        Meteor.users.update(this.userId,
-            {$set: {'profile.score': currentScore++} }
-        )
-    },
-    increaseUserScoreTwo(){
-        currentScore = Meteor.users().profile.score;
-        Meteor.users.update(this.userId,
-            {$set: {'profile.score': currentScore+2} }
-        )
-    },
+
 
 
 });
