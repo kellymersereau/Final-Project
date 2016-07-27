@@ -22,6 +22,7 @@ previousPlaces = [];
 renderedPlacesIcons = [];
 radiusLat = [];
 radiusLng = [];
+// renderedPhotoResponse = [];
 
 
 Template.map.onRendered(function() {
@@ -57,7 +58,7 @@ Template.map.onRendered(function() {
         // Map initialization options
         return {
           center: new google.maps.LatLng(sessionLocation.lat, sessionLocation.lng),
-          zoom: 17
+          zoom: 15
         };
       }
     }
@@ -82,6 +83,8 @@ Template.map.onRendered(function() {
       // Add a marker to the map once it's ready
       //trying to add an array of markers
 
+      //this is pushing too many in now
+
       for (i = 0; i<placesResponse.length; i ++){
         placeNames.push(placesResponse[i].name);
         placeType.push(placesResponse[i].types);
@@ -89,18 +92,59 @@ Template.map.onRendered(function() {
 
       };
 
+      //get random places, but make sure they aren't the same places
 
-      //shuffle the 
+      for (i=0; i<placesResponse[i].types.length; i++){
+
+        if (placesResponse[i].types[i] != "political" | "sublocality" | "locality" | "neighborhood" | "sublocality_level_1" | "sublocality_level_2" | "sublocality_level_3" | "sublocality_level_4" | "sublocality_level_5"){
+
+        var randomA = Math.floor(Math.random() * placesResponse.length);
+        var randomB = Math.floor(Math.random() * placesResponse.length);
+
+        if (randomA != randomB){
+          renderedPlaces.push(placesResponse[randomA]);
+          renderedPlaces.push(placesResponse[randomB]);    
+        }else{
+          renderedPlaces.push(placesResponse[randomA]);
+          _.shuffle(placesResponse);
+          renderedPlaces.push(placesResponse[randomA]);
+        };
+      };
+    };
+
+      //crappier way to randomize:
+
+      // }else{  
+      //   var randomC = Math.floor(Math.random() * placesResponse.length);
+      //   renderedPlaces.push(placesResponse[randomA]);
+      //   renderedPlaces.push(placesResponse[randomC]);
+      // };
+
+      //BELOW: was trying to make sure locality and political places did not pull.
 // 
       // renderedPlaces.push(placesResponse[0]);
       //need a conditional here based on user points (for the second place) not sure where it will be stored yet.
       // renderedPlaces.push(placesResponse[1]);
+      // for (i=0; i<2; i++){
+        // for (j=0; j<placesResponse[i].types.length; j++){
+          // if (placesResponse[i].types[j] != "political"){
+            // renderedPlaces.push(placesResponse[Math.floor(Math.random() * placesResponse.length)]);
+            // dualLocation = Session.get('dualLocation');
+            // if (dualLocation = true){
+            // renderedPlaces.push(placesResponse[Math.floor(Math.random() * placesResponse.length)]);
+            // };
+        // };
+      // };
+    // };
 
-      renderedPlaces.push(placesResponse[Math.floor(Math.random() * placesResponse.length)]);
-      renderedPlaces.push(placesResponse[Math.floor(Math.random() * placesResponse.length)]);
-
-      for (i = 0; i<renderedPlaces.length; i ++){
-
+//2 was rendered places before
+      for (i = 0; i<2; i ++){
+        var allRenderedPlaces = [];
+        allRenderedPlaces.push(renderedPlaces[i]);
+        // Session.set('allSessionRenders', allRenderedPlaces);
+        Session.set('sessionRendered' + [i], renderedPlaces[i]);
+        Session.set('sessionNames' + [i], renderedPlaces[i].name);
+        Session.set('sessionVicinity' + [i], renderedPlaces[i].vicinity);
         renderedNames.push(renderedPlaces[i].name);
         renderedType.push(renderedPlaces[i].types);
         renderedPlacesIcons.push(renderedPlaces[i].icon);
@@ -120,7 +164,7 @@ Template.map.onRendered(function() {
           position: renderedPlaces[i].geometry.location,
           map: map.instance,
           animation: google.maps.Animation.DROP,
-          label: renderedPlaces[i].name,
+          // label: renderedPlaces[i].name,
           icon: resizedIcon
         });
 
@@ -130,7 +174,8 @@ Template.map.onRendered(function() {
           map: map.instance,
           clickable: false,
           strokeColor: '#FF0000',
-          radius: 10000,
+          strokeOpacity: .40,
+          radius: 65,
           fillcolor: '#FF0000',
           fillOpacity: .35,
           center: POImarker.position
@@ -173,11 +218,11 @@ Template.map.onRendered(function() {
 
           if (bounds.contains(radiusCheck) == true){ 
             console.log("user has reached POI!");
-            alert('Nice work! Answer the question below!');
+            // alert('Nice work! Answer the question below!');
             Session.set('showQuestion', true);
             Session.set('sessionPoints', 1);
           }else{
-            alert('You haven\'t reached one of the goal locations yet! Head over to one and then check in!');
+            // alert('You haven\'t reached one of the goal locations yet! Head over to one and then check in!');
             console.log("user clicked button but has not reached");
           }
         }
@@ -186,9 +231,9 @@ Template.map.onRendered(function() {
         //define infowindow 0  NOT WORKING currently
         // var infowindow = new google.maps.InfoWindow();
         // debugger;
-        //content string for info window - NOT WORKIGN currently
-        // var contentString[i] = "null"
-        // "<div id=\"content\"><h1 id=\"POIname\">"
+        //content string for info window - NOT WORKIGN currently"
+
+        // var contentString[i] = "null        // "<div id=\"content\"><h1 id=\"POIname\">"
         //  + renderedNames[i].name 
         //  + "  </h1><br><h3 id=\"types\"> Keywords:" 
         //  + renderedType[i].types 
@@ -228,8 +273,9 @@ Template.map.onRendered(function() {
 
         //pin image for user location (second option)
         var pinColor = "2DB4E0";
-        var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor,
-            new google.maps.Size(21, 34),
+        var pinImage = new google.maps.MarkerImage("http://icons.iconarchive.com/icons/icons8/windows-8/24/Travel-Human-Footprints-icon.png",
+         // + pinColor,
+            new google.maps.Size(24, 24),
             new google.maps.Point(0,0),
             new google.maps.Point(0, 0));
 
@@ -261,6 +307,9 @@ Template.map.onRendered(function() {
       });
     });
   });
+
+// https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&photoreference=CnRtAAAATLZNl354RwP_9UKbQ_5Psy40texXePv4oAlgP4qNEkdIrkyse7rPXYGd9D_Uj1rVsQdWT4oRz4QrYAJNpFX7rzqqMlZw2h2E2y5IKMUZ7ouD_SlcHxYq1yL4KbKUv3qtWgTK0A6QbGh87GB3sscrHRIQiG2RrmU_jF4tENr9wGS_YxoUSSDrYjWmrNfeEHSGSc3FyhNLlBU&key=YOUR_API_KEY
+
 
 // Template.body.events({
 //   'click .check-in': function (e) {
