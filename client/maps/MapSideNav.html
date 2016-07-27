@@ -1,0 +1,44 @@
+<template name="mapSideNav">
+
+<style>
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+</style>
+<div class="storelocator-panel" id="panel">
+	<h2 class="table-head-title"  style="font-weight:bold;text-decoration:underline;text-align: center;"> Your places!</h2>
+	<ul class="store-list">
+		<li class="store">		  
+			<div class="title">
+				{{renderedName0}}
+			</div>
+			<div class="address">
+			   {{renderedVicinity0}}
+			</div>
+		</li>
+		<li class="store">		  
+			<div class="title">
+				{{renderedName1}}
+			</div>
+			<div class="address">
+			   {{renderedVicinity1}}
+			</div>
+		</li>
+	</ul>
+</div>
+
+</template>
+
+

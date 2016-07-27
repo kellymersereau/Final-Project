@@ -1,7 +1,6 @@
 <template name="map">
 
 	{{> SideNav}}
-<!-- 	{{>mapSideNav}} -->
 
 	<div class="transitions-content">
 		<div class="row" id="mapHeader">
@@ -14,6 +13,8 @@
 				<p>Find your way to the location marked on the map.  Once you arrive at the location click "Check In" to check in and get a trivia question to answer.  If you answer correctly, you will receive two new locations to choose from.  If your answer is wrong, you will only receive one new location.</p>
 			</div>
 		</div>
+		{{>mapSideNav}}
+		
 		<div class="map-container">
 		{{#unless geolocationError}}
 		  {{> googleMap name="map" options=exampleMapOptions}}
@@ -25,7 +26,6 @@
 
 
 		</div>
-
 		{{> trivia}}
 		
 	</div>
