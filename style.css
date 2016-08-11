@@ -1,0 +1,112 @@
+
+/*font-family: 'Raleway', sans-serif;
+font-family: 'Bungee Shade', cursive;*/
+
+html {
+	box-sizing: border-box;
+	padding: 10px;
+}
+*, *:before, *:after {
+	box-sizing: inherit;
+}
+body {
+	margin: 100px auto;
+	height: 100%;
+	background: #EEE;
+}
+p {
+	font-family: 'Raleway', sans-serif;
+}
+/* Header css */
+header {
+	z-index: 999;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+	color: #fff;
+	background: #00af81;
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 110px;
+	width: 100%;
+}
+#logo-title {
+	font-family: 'Bungee Shade', cursive;
+	font-size: 63px;
+	margin-bottom: 20px;
+	text-shadow: -5px 5px 6px #524763;
+	color: #fff;
+	text-align: center;
+}
+
+/* Sidenav css */
+#navContainer {
+	border-top: 1px solid #66b6cf;
+	z-index: 999;
+	background: #0086af;
+	width: 100%;
+	height: 70px;
+	box-shadow: 0 -3px 6px  rgba(0,0,0,0.06), 0 -3px 6px rgba(0,0,0,0.20);
+	display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.tab {
+  cursor: pointer;
+  text-align: center;
+  border-top: 2px solid transparent;
+  margin: 0;
+  padding: 10px 15px 0 15px;
+}
+.tab:hover {
+	background: #e5f2f7;
+	opacity: 0.4;
+	color: #282828;
+	-moz-box-shadow: 1px 1px 3px 2px #66b6cf;
+  	-webkit-box-shadow: 1px 1px 3px 2px #66b6cf;
+  	box-shadow: 1px 1px 3px 2px #66b6cf;
+}
+.tab:active {
+	background: #99cc99;
+}
+.tab a {
+	color: #FFF;
+	text-decoration: none;
+	text-align: center;
+}
+.tab i {
+	display: list-item;
+	list-style: none;
+	font-size: 200%;
+	margin-bottom: 10px;
+}
+.tab i p {
+	font-size: 15px;
+}
+.tab i:hover {
+	color: #282828;
+}
+
+/* Home css */
+
+#home {
+    background: url(/public/images/friends-going-to-car.jpg) no-repeat center fixed;
+    background-size: cover;
+}
+
+/* Screens smaller than 768 px */
+@media screen and (max-width: 767px){
+	#logo-title {
+		font-family: 'Bungee', sans-serif;
+		font-size: 38px;
+	}
+	header {
+		height: 80px;
+	}
+	#navContainer {
+		height: 70px;
+	}
+	.tab i p {
+		display: none;
+	}
+}

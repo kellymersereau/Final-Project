@@ -1,24 +1,51 @@
 <template name="SideNav">
-	<nav class="side-nav">
-		<ul>
-			<li>
-				<a href={{pathToProfile}}> <i class="fa fa-user" aria-hidden="true"></i> Profile </a>
-			</li>
-			<li>
-				<a href="/leaderboard"> <i class="fa fa-trophy" aria-hidden="true"></i> Leaderboard </a>
-			</li>
-			<li>
-				<a href="/map"> <i class="fa fa-play" aria-hidden="true"></i> Play Game </a>
-			</li>
-			<li>
-				<a href="/createTrivia"> <i class="fa fa-question" aria-hidden="true"></i> Create a Trivia Question </a>
-			</li>
-			<li>
-				<a class="logout"> <i class="fa fa-sign-out" aria-hidden="true"></i> Sign Out </a>
-			</li>
-
-		</ul>
-		
+	<nav class="navbar navbar-fixed-bottom">
+		<div class="container" id="navContainer">
+<!-- 			<div class="tabs"> -->
+				<div class="col-md-2 tab">
+					<a href="#" class="buttonsClick">
+						<i class="fa fa-info" aria-hidden="true">
+							<p>How to Play</p>
+						</i>
+					</a>
+				</div>
+				<div class="col-md-2 tab">
+					<a href={{pathToProfile}} class="buttonsClick"> 
+						<i class="fa fa-user" aria-hidden="true">
+							<p>User Profile</p>
+						</i>
+					</a>
+				</div>
+				<div class="col-md-2 tab">
+					<a href="/leaderboard" class="buttonsClick">
+						<i class="fa fa-trophy" aria-hidden="true">
+							<p>Leaderboard</p>
+						</i>  
+						 
+					</a>
+				</div>
+				<div class="col-md-2 tab">
+					<a href="/map" class="buttonsClick"> 
+						<i class="fa fa-play" aria-hidden="true">
+							<p>Play Game</p>
+						</i>
+					</a>
+				</div>
+				<div class="col-md-2 tab">
+					<a href="/createTrivia" class="buttonsClick"> 
+						<i class="fa fa-question" aria-hidden="true">
+							<p>New Question</p>
+						</i>
+					</a>
+				</div>
+				<div class="col-md-2 tab">
+					<a id="logout" class="buttonsClick"> 
+						<i class="fa fa-sign-out" aria-hidden="true">
+							<p>Sign Out</p>
+						</i> 
+					</a>
+				</div>
+<!-- 			</div> -->
+		</div>
 	</nav>
-	
 </template>
